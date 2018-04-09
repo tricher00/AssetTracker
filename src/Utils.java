@@ -80,7 +80,12 @@ public class Utils {
 			ps.setString(5, salt);
 			ps.setString(6, phone);
 			ps.setString(7, permissionLevel);
-			ps.setString(8, reportsTo);
+			if (reportsTo.equals("")){
+				ps.setString(8, null);
+			}
+			else{
+				ps.setString(8, reportsTo);
+			}
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -204,6 +209,33 @@ public class Utils {
 			}
 			
 			return devArr;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	//Returns a list of Strings of all users first and last names
+	//[0] will equal "None" and the default admin account is ignored
+	public static String[] getAllUsersNames(){
+		Connection con = dbConn();
+		String query = "SELECT FirstName, LastName FROM User";
+		try {
+			PreparedStatement ps = con.prepareStatement(query);
+			ResultSet result = ps.executeQuery();
+			List<String> users = new ArrayList<String>();
+			users.add("None");
+			while(result.next()){
+				String first = result.getString(1);
+				String last = result.getString(2);
+				if (!(first + " " + last).equals("admin admin")){
+					users.add(first + " " + last);
+				}
+			}
+			String[] fullNames = new String[users.size()];
+			fullNames = users.toArray(fullNames);
+			return fullNames;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
