@@ -215,6 +215,24 @@ public class Utils {
 		}
 	}
 	
+	public static void updatePassword(User user, String newPass){
+		Connection con = dbConn();
+		String query = "UPDATE User SET Password = (?), HasLoggedIn = 1 WHERE Email = '" + user.email + "';";
+		String password = hashPass(user.salt, newPass);
+		
+		try {
+			PreparedStatement ps = con.prepareStatement(query);
+			
+			ps.setString(1, password);
+			
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			dbClose(con);
+		}
+		dbClose(con);
+	}
+	
 	//Returns a list of Strings of all users first and last names
 	//[0] will equal "None" and the default admin account is ignored
 	public static String[] getAllUsersNames(){

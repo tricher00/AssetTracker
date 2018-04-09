@@ -52,10 +52,18 @@ public class LoginPanel extends JPanel{
 	
 	public void login(String email, JPanel contentPane){
 		User user = new User(email);
-		JPanel dev = new DevicesPanel(user, contentPane);
-		contentPane.add(dev, "Devices");
-		CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-        cardLayout.show(contentPane, "Devices");
+		if (user.hasLoggedIn == 0){
+			JPanel change = new ChangePassword(user, contentPane);
+			contentPane.add(change, "Change Password");
+			CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+			cardLayout.show(contentPane, "Change Password");
+		}
+		else{
+			JPanel dev = new DevicesPanel(user, contentPane);
+			contentPane.add(dev, "Devices");
+			CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+	        cardLayout.show(contentPane, "Devices");
+		}
 	}
 
 }
