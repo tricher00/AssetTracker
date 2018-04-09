@@ -95,26 +95,45 @@ public class AddUser extends JPanel{
         add(form, BorderLayout.CENTER);
         
         add(submit, BorderLayout.PAGE_END);
-        /*
+        
         submit.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
-	            String typeInput = type.getText();
-	            String descInput = description.getText();
-	            String dateInput = neededBy.getText();
-	            String commInput = comments.getText();
-	            if (!(dateInput.matches("[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]"))){
+	            String firstInput = first.getText();
+	            String lastInput = last.getText();
+	            String emailInput = email.getText();
+	            String phoneInput = phone.getText();
+	            String passInput = password.getText();
+	            String reenterInput = reEnter.getText();
+	            String reportsInput = (String) reportsTo.getSelectedItem();
+	            boolean isAdminInput = isAdmin.isSelected();
+	            if (!passInput.equals(reenterInput)){
 	            	JOptionPane.showMessageDialog(contentPane,
-        		    "Please enter a valid date.",
-        		    "Invalid date",
+        		    "Passwords don't match.",
+        		    "Passwords don't match",
         		    JOptionPane.WARNING_MESSAGE);
         			return;
 	            }
-	            Utils.insertRequest(currentUser.email, typeInput, descInput, commInput, dateInput);
+	            String permLevel;
+	            if (isAdminInput){
+	            	permLevel = "admin";
+	            }
+	            else{
+	            	permLevel = "standard";
+	            }
+	            String reporter;
+	            if (reportsInput.equals("None")){
+	            	reporter = "";
+	            }
+	            else{
+	            	String[] arr = reportsInput.split(": ");
+	            	reporter = arr[1];
+	            }
+	            Utils.insertUser(firstInput, lastInput, emailInput, passInput, phoneInput, permLevel, reporter);
 	            JPanel dev = new DevicesPanel(currentUser, contentPane);
 	    		contentPane.add(dev, "Devices");
 	    		CardLayout cardLayout = (CardLayout) contentPane.getLayout();
 	            cardLayout.show(contentPane, "Devices");
 	         }
-        });*/
+        });
 	}
 }

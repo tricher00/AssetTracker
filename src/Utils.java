@@ -219,7 +219,7 @@ public class Utils {
 	//[0] will equal "None" and the default admin account is ignored
 	public static String[] getAllUsersNames(){
 		Connection con = dbConn();
-		String query = "SELECT FirstName, LastName FROM User";
+		String query = "SELECT FirstName, LastName, Email FROM User";
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
 			ResultSet result = ps.executeQuery();
@@ -228,8 +228,9 @@ public class Utils {
 			while(result.next()){
 				String first = result.getString(1);
 				String last = result.getString(2);
+				String email = result.getString(3);
 				if (!(first + " " + last).equals("admin admin")){
-					users.add(first + " " + last);
+					users.add(first + " " + last + ": " + email);
 				}
 			}
 			String[] fullNames = new String[users.size()];
