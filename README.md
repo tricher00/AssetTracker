@@ -14,7 +14,7 @@
 
 - Add Device
   - Form to add device (See add user for help)
-  - Working on: 
+  - Working on: Tim
 
 - Edit Device
   - Drop down to select a device. When device is selected populate fields on page with device data and have the ability to edit them.
