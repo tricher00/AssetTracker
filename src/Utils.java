@@ -119,6 +119,30 @@ public class Utils {
 		dbClose(con);
 	}
 	
+	public static void updateDevice(String id, String type, String description, String assignedTo){
+		String query = "UPDATE Device SET Type = (?), Description = (?), AssignedTo = (?) WHERE Id = '" + id + "';";
+		
+		Connection con = dbConn();
+		
+		try {
+			PreparedStatement ps = con.prepareStatement(query);
+			
+			ps.setString(1, type);
+			ps.setString(2, description);
+			if (assignedTo.equals("")){
+				ps.setString(3, null);
+			}
+			else{
+				ps.setString(3, assignedTo);
+			}
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			dbClose(con);
+		}
+		dbClose(con);
+	}
+	
 	public static void insertRequest(String user, String type, String description, String comments, String neededBy){
 		String query = "INSERT INTO Request (UserId, DeviceType, Description, Comments, NeededBy) VALUES (?,?,?,?,?)";
 		
@@ -259,6 +283,28 @@ public class Utils {
 			String[] fullNames = new String[users.size()];
 			fullNames = users.toArray(fullNames);
 			return fullNames;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public static String[] getDeviceIds(){
+		Connection con = dbConn();
+		String query = "SELECT Id FROM Device";
+		try {
+			PreparedStatement ps = con.prepareStatement(query);
+			ResultSet result = ps.executeQuery();
+			List<String> ids = new ArrayList<String>();
+			while(result.next()){
+				String id = result.getString(1);
+				ids.add(id);
+			}
+			dbClose(con);
+			String[] idArray = new String[ids.size()];
+			idArray = ids.toArray(idArray);
+			return idArray;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
