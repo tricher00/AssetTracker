@@ -96,6 +96,16 @@ public class Nav extends JPanel{
 	         }
         });
 		
+		addDevice.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	        	User user = new User(currentUser.email);
+	    		JPanel addDevicePanel = new AddDevice(user, contentPane);
+	    		contentPane.add(addDevicePanel, "Add Device");
+	    		CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+	            cardLayout.show(contentPane, "Add Device");
+	         }
+        });
+		
 		logout.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
 	    		JPanel login = new LoginPanel(contentPane);

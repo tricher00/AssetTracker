@@ -105,7 +105,12 @@ public class Utils {
 			ps.setString(1, id);
 			ps.setString(2, type);
 			ps.setString(3, description);
-			ps.setString(4, assignedTo);
+			if (assignedTo.equals("")){
+				ps.setString(4, null);
+			}
+			else{
+				ps.setString(4, assignedTo);
+			}
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
