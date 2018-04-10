@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 public class DeviceRequest extends JPanel{
 	public DeviceRequest(User currentUser, JPanel contentPane){
@@ -14,7 +15,7 @@ public class DeviceRequest extends JPanel{
 		gc.weightx = 1;
 		gc.weighty = 1;
         gc.fill = GridBagConstraints.HORIZONTAL;
-        gc.insets = new Insets(0, 0, 0, 0);
+        gc.insets = new Insets(10, 10, 10, 10);
         
         JLabel typeLabel = new JLabel("Type: ");
         JTextField type = new JTextField(40);    
@@ -46,7 +47,8 @@ public class DeviceRequest extends JPanel{
         gc.gridy++;
         form.add(comments, gc);
         
-        add(form, BorderLayout.LINE_START);
+        form.setBorder(new EmptyBorder(10, 100, 10, 100));
+        add(form, BorderLayout.CENTER);
         
         add(submit, BorderLayout.PAGE_END);
         
