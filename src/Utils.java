@@ -244,6 +244,31 @@ public class Utils {
 		}
 	}
 	
+	public static Ticket[] getAllTickets(){
+		Connection con = dbConn();
+		String query = "SELECT Id FROM Ticket";
+		try {
+			PreparedStatement ps = con.prepareStatement(query);
+			ResultSet result = ps.executeQuery();
+			List<Integer> tickets = new ArrayList<Integer>();
+			while(result.next()){
+				tickets.add(result.getInt(1));
+			}
+			int n = tickets.size();
+			Ticket[] ticArr = new Ticket[n];
+			
+			for (int i = 0; i < n; i++){
+				int id = tickets.get(i);
+				ticArr[i] = new Ticket(id);
+			}
+			
+			return ticArr;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public static void updatePassword(User user, String newPass){
 		Connection con = dbConn();
 		String query = "UPDATE User SET Password = (?), HasLoggedIn = 1 WHERE Email = '" + user.email + "';";
@@ -303,6 +328,28 @@ public class Utils {
 			}
 			dbClose(con);
 			String[] idArray = new String[ids.size()];
+			idArray = ids.toArray(idArray);
+			return idArray;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public static Integer[] getApprovedRequests(){
+		Connection con = dbConn();
+		String query = "SELECT Id FROM Request WHERE Approved != 0";
+		try {
+			PreparedStatement ps = con.prepareStatement(query);
+			ResultSet result = ps.executeQuery();
+			List<Integer> ids = new ArrayList<Integer>();
+			while(result.next()){
+				int id = result.getInt(1);
+				ids.add(id);
+			}
+			dbClose(con);
+			Integer[] idArray = new Integer[ids.size()];
 			idArray = ids.toArray(idArray);
 			return idArray;
 			

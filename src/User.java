@@ -70,7 +70,6 @@ public class User {
 			
 			Utils.dbClose(conn);
 			
-			this.printUser();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			Utils.dbClose(conn);

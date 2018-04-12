@@ -28,12 +28,41 @@ public class Request {
 			e.printStackTrace();
 			Utils.dbClose(conn);
 		}
-		printRequest();
 	}
 	public void printRequest(){
 		System.out.println("Id: " + this.id);
 		System.out.println("Type: " + this.type);
 		System.out.println("Description: " + this.description);
 		System.out.println("Submitter: " + this.userId);		
+	}
+	
+	public void Approve() {
+		String query = "UPDATE Request SET Approved = 1 WHERE Id = '" + id + "';";
+		
+		Connection con = Utils.dbConn();
+		
+		try {
+			PreparedStatement ps = con.prepareStatement(query);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			Utils.dbClose(con);
+		}
+		Utils.dbClose(con);
+	}
+	
+	public void Delete(){
+		String query = "DELETE FROM Request WHERE Id = '" + id + "'";
+		
+		Connection con = Utils.dbConn();
+		
+		try {
+			PreparedStatement ps = con.prepareStatement(query);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			Utils.dbClose(con);
+		}
+		Utils.dbClose(con);
 	}
 }

@@ -65,6 +65,26 @@ public class Nav extends JPanel{
 	            cardLayout.show(contentPane, "Devices");
 	         }
         });
+		
+		requests.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	        	User user = new User(currentUser.email);
+	    		JPanel req = new RequestsPanel(user, contentPane);
+	    		contentPane.add(req, "Requests");
+	    		CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+	            cardLayout.show(contentPane, "Requests");
+	         }
+        });
+		
+		tickets.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	        	User user = new User(currentUser.email);
+	    		JPanel tic = new TicketPanel(user, contentPane);
+	    		contentPane.add(tic, "Tickets");
+	    		CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+	            cardLayout.show(contentPane, "Tickets");
+	         }
+        });
 
 		reqDevice.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {

@@ -24,7 +24,6 @@ public class Device {
 			e.printStackTrace();
 			Utils.dbClose(conn);
 		}
-		printDevice();
 	}
 	public void printDevice(){
 		System.out.println("Id: " + this.id);
